@@ -20,6 +20,7 @@ public class PollService {
     }
 
     public Optional<Poll> getPoll(Long id) {
+        verifyPoll(id);
         return pollRepository.findById(id);
     }
 
@@ -34,15 +35,17 @@ public class PollService {
     }
 
     public ResponseEntity<Void> deletePoll(Long id) {
+        verifyPoll(id);
         pollRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     public void verifyPoll(Long pollId) throws ResourceNotFoundException {
         Optional<Poll> poll = pollRepository.findById(pollId);
-        if (poll == null) { // if the poll given does not exist it will return the message below
+        if (!poll.isPresent()) { // if the poll given does not exist it will return the message below
             throw new ResourceNotFoundException("The poll with id " + pollId + " does not exist");
         }
     }
+
 
 }

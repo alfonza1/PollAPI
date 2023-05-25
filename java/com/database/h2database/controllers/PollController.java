@@ -27,11 +27,8 @@ public class PollController {
     @GetMapping("polls/{id}")
     public ResponseEntity<Poll> getPoll(@PathVariable Long id) {
         Optional<Poll> poll = pollService.getPoll(id);
-        if(poll.isPresent()) {
+
             return ResponseEntity.ok(poll.get());
-        } else {
-            throw new ResourceNotFoundException("Poll with id " + id + " not found");
-        }
     }
 
 
@@ -45,12 +42,8 @@ public class PollController {
     @PutMapping("polls/{id}")
     public ResponseEntity<Poll> updatePoll(@PathVariable Long id, @RequestBody Poll newPoll) {
         Optional<Poll> existingPoll = pollService.getPoll(id);
-        if (existingPoll.isPresent()) {
-            newPoll.setId(id);
             return ResponseEntity.ok(pollService.updatePoll(newPoll));
-        } else {
-            throw new ResourceNotFoundException("Poll with id " + id + " not found");
-        }
+
     }
 
 
@@ -61,14 +54,7 @@ public class PollController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getPollOption(@PathVariable int id) {
-        if (pollOptions.containsKey(id)) {
-            return ResponseEntity.ok(pollOptions.get(id));
-        } else {
-            throw new ResourceNotFoundException("PollOption with id " + id + " not found");
-        }
-    }
+
 
 }
 

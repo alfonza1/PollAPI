@@ -41,7 +41,7 @@ public class VoteController {
 
             return ResponseEntity.ok().build();
         } else {
-            throw new ResourceNotFoundException("Option with id " + optionId + " not found");
+            throw new ResourceNotFoundException("Poll with id " + optionId + " not found");
         }
     }
 }

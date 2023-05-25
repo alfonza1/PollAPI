@@ -1,5 +1,6 @@
 package com.database.h2database.controllers;
 
+import com.database.h2database.errorhandling.ResourceNotFoundException;
 import com.database.h2database.model.Option;
 import com.database.h2database.repositories.OptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,25 @@ public class OptionByIdController {
     @Autowired
     private OptionRepository optionRepository;
 
-    @GetMapping("/polls/votes/{optionId}")
-    public ResponseEntity<Integer> getVoteCount(@PathVariable Long optionId) {
+    @GetMapping("/polls/{pollId}/votes/{optionId}")
+    public ResponseEntity<String> getVoteCount(
+            @PathVariable Long pollId,
+            @PathVariable Long optionId
+    ) {
         Optional<Option> optionOptional = optionRepository.findById(optionId);
         if (optionOptional.isPresent()) {
             Option option = optionOptional.get();
+            String optionValue = option.getValue();
             int voteCount = option.getVotes();
-            return ResponseEntity.ok(voteCount);
+            String result = "Poll ID: " + pollId +
+                    ", Option: " + optionValue +
+                    ", Votes: " + voteCount;
+            return ResponseEntity.ok(result);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Option with id " + optionId + " not found");
         }
     }
+
+
 
 }
