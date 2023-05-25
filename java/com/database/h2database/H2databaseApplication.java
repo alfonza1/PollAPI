@@ -11,3 +11,17 @@ public class H2databaseApplication {
 	}
 
 }
+//{
+//		"id": 1,
+//		"question": "who is the greatest artist of all time",
+//		"options": [
+//		{
+//		"id": 2,
+//		"value": "Option 1"
+//		},
+//		{
+//		"id": 3,
+//		"value": "Option 2"
+//		}
+//		]
+//		}

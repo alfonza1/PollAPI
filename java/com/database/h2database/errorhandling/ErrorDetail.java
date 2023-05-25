@@ -48,4 +48,15 @@ public class ErrorDetail {
     public void setDeveloperMessage(String developerMessage) {
         this.developerMessage = developerMessage;
     }
+
+    @Override
+    public String toString() {
+        return "ErrorDetail{" +
+                "title='" + title + '\'' +
+                ", status=" + status +
+                ", detail='" + detail + '\'' +
+                ", timeStamp=" + timeStamp +
+                ", developerMessage='" + developerMessage + '\'' +
+                '}';
+    }
 }
